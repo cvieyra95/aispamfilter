@@ -1,3 +1,3 @@
-# aispamfilter
+# Spam Email Classifier
 
 We plan to build an application that can tell if a message is spam or a regular email. The program will take the text of an email, turn it into data that a computer can understand, and then use a Naive Bayes model to decide if it is spam or not. We will train the program on a set of emails that are already labeled as spam or not spam. After training, we will test how well it works by checking accuracy and other basic measures. To make the project easy to show, we will also make a simple screen where a user can paste in a message and get back a result that says “spam” or “not spam.”
