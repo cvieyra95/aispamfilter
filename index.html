@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <title>AI Spam Filter</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+    <body>
+        <div class="main">
+            <div class="heading">
+                <h1>AI Spam Filter</h1>
+            </div>
+            <div class="messageBox">
+                <textarea required="" placeholder="Enter Email..." type="text" id="msgInput"></textarea>
+                
+            </div>
+            <div class="buttons">
+                <button onclick=spamChecker() id="submit">Submit</button>
+                <button onclick=clearText() id="clear">Clear</button>
+                
+            </div>
+            <div class="results">
+                <p id="result"></p>
+            </div>
+        </div>
+        <script>
+            async function spamChecker() {
+                const text = document.getElementById("msgInput").value
+                const response = await fetch ("http://127.0.0.1:8000/predict", {
+                    method: "POST",
+                    headers: {"content-type" : "application/json"},
+                    body: JSON.stringify({text})    
+                })
+                const data = await response.json()
+                document.getElementById("result").innerText = data.spam ? "This is most likely spam!" : "This is most likely not spam"
+            }
+            function clearText() {
+                document.getElementById("msgInput").value=""
+                document.getElementById("result").innerText=""
+
+            }
+        </script>
+    </body>
+</html>
