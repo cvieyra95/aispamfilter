@@ -1,3 +1,42 @@
 # Spam Email Classifier
 
-We plan to build an application that can tell if a message is spam or a regular email. The program will take the text of an email, turn it into data that a computer can understand, and then use a Naive Bayes model to decide if it is spam or not. We will train the program on a set of emails that are already labeled as spam or not spam. After training, we will test how well it works by checking accuracy and other basic measures. To make the project easy to show, we will also make a simple screen where a user can paste in a message and get back a result that says “spam” or “not spam.”
+## Instructions
+
+### System Requirements
+* Operating System: Windows 10/11, MacOS
+* Language: Python 3.11 (or higher)
+* Libraries: 
+    - FastAPI
+    - Scikit-learn
+    - Joblib
+    - Pydantic
+
+## Installation Instructions
+
+1. Install Python
+    Ensure Python 3.11 or higher is intalled.
+    `python --version`
+2. Open Project Folder In VSCode
+
+3. Create a Virtual Environment (recommened)
+    Windows
+    `venv\Scripts\activate`
+    macOS
+    `source venv/bin/activate`
+4. Install Dependencies
+   Run the following command in the project where api.py is located
+   `pip install -r requirements.txt`
+
+   Install the VSCode liver server extension
+
+5. Running the application
+    ### Backend
+    From the project root folder, run:
+    `uvicorn api:app -reload`
+
+    ### Frontend
+    Open the index.html file in VSCode live server(right click then open with live server)
+
+
+
+ 

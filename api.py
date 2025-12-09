@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import joblib
+import pandas as pd
 
 app = FastAPI()
 origins = [
@@ -18,16 +19,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model = joblib.load('spamfilter.sav')
-vectorizer = joblib.load('vectorizer.sav')
+model = joblib.load('spam_filter_update.pkl')
 
 class Email(BaseModel):
     text:str
 
+class Feedback(BaseModel):
+    text:str
+    correct: bool
+    prediction: int
+
 
 @app.post("/predict")
 def predict(email: Email):
-    vec = vectorizer.transform([email.text])
-    vector = vec.toarray()
-    prediction = model.predict(vector)[0]
+    prediction = model.predict([email.text])[0]
     return {"spam": bool(prediction)}
+
+@app.post("/feedback")
+def feedback(feedback: Feedback):
+    df = pd.read_csv("feedback_data.csv")
+    new_row = {"Text": feedback.text, "Prediction": feedback.prediction, "Correct": feedback.correct}
+    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+    df.to_csv("feedback_data.csv", index=False)
+    return {"status: success"}

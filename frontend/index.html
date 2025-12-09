@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+    <title>AI Spam Checker</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+    <body>
+        <div class="main">
+            <div class="heading">
+                <h1>AI Spam Checker</h1>
+            </div>
+            <div class="messageBox">
+                <textarea required="" placeholder="Paste Email Content Here..." type="text" id="msgInput"></textarea>
+                
+            </div>
+            <div class="feedback">
+                
+                <input type="image" src="like.png" id="like" title="yes" onclick="feedback(true)"/>
+                <input type="image" src="down.png" id="down" title="no" onclick="feedback(false)"/>
+
+            </div>
+            <div class="buttons">
+                <button onclick=spamChecker() id="submit">Submit</button>
+                <button onclick=clearText() id="clear">Clear</button>
+                
+            </div>
+            <div class="results">
+                <p id="result"></p>
+            </div>
+        </div>
+        <script>
+            prediction = null
+            async function spamChecker() {
+                const text = document.getElementById("msgInput").value
+                const response = await fetch ("http://127.0.0.1:8000/predict", {
+                    method: "POST",
+                    headers: {"content-type" : "application/json"},
+                    body: JSON.stringify({text})    
+                })
+                const data = await response.json()
+                prediction = data.spam ? 1 : 0
+                console.log(data)
+                document.getElementById("result").innerText = data.spam ? "Result: Spam" : "Result: Not Spam"
+            }
+            function clearText() {
+                document.getElementById("msgInput").value=""
+                document.getElementById("result").innerText=""
+
+            }
+
+            async function feedback(correct) {
+                const text = document.getElementById("msgInput").value
+                if (!text || prediction === null){
+                    alert("Please submit a email")
+                    return
+                }
+                await fetch("http://127.0.0.1:8000/feedback", {
+                    method: "POST",
+                    headers: {"content-type" : "application/json"},
+                    body: JSON.stringify({
+                        text: text,
+                        correct: correct,
+                        prediction: prediction
+                    })
+                }).then(() => alert("Thanks for your feedback!"))
+
+            }
+        </script>
+    </body>
+</html>
