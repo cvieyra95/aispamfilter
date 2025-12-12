@@ -23,9 +23,10 @@
 
 ## Running the application
     
-### Method 1 (Using Two Terminals)
+### Method 1 (Using Terminal)
 
 1. Open two terminal windows
+    - You will run the backend in one and the frontend in the other
 
 2. Change to the project directory on both terminal windows:
 
@@ -37,7 +38,7 @@
     - change to the frontend folder `cd frontend`
     - Run:
         `python -m http.server 5500`
-    - You can now go to `http://localhost:5500' to the webpage and use the application
+    - You can now go to `http://localhost:5500` to the webpage and use the application
 
 ### Method 2 (Through VSCode)
 
