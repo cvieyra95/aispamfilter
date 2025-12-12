@@ -16,26 +16,31 @@
 1. Install Python
     Ensure Python 3.11 or higher is intalled.
     `python --version`
-2. Open Project Folder In VSCode
+2. Open two terminal windows and change directory to project folder
 
 3. Create a Virtual Environment (recommened)
-    Windows
+    - Windows
     `venv\Scripts\activate`
-    macOS
+    - macOS
     `source venv/bin/activate`
 4. Install Dependencies
-   Run the following command in the project where api.py is located
-   `pip install -r requirements.txt`
+   - Run the following command in the project where api.py is located
+   `pip install uvicorn scikit-learn pandas numpy`
 
-   Install the VSCode liver server extension
-
+   
 5. Running the application
     ### Backend
     From the project root folder, run:
     `uvicorn api:app -reload`
 
     ### Frontend
-    Open the index.html file in VSCode live server(right click then open with live server)
+    Run:
+    `python -m http.server 5500`
+
+6. Using Application
+    - Once the backend and frontend are running you can now use the application,
+    - Paste the contents of an email into the entry box and the application will tell if you its spam or not. 
+    
 
 
 

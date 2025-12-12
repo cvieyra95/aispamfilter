@@ -20,7 +20,7 @@ def split_data(data):
     return train_test_split(X, y, random_state=104, test_size=0.2, shuffle=True)  
 
 
-#vectorizes text and run
+#vectorizes text and runs NB
 def build_model():
     pipe_line = make_pipeline(TfidfVectorizer(stop_words="english", min_df=2, max_df=.95, ngram_range=(1,2)), MultinomialNB()) 
     return pipe_line
@@ -55,6 +55,6 @@ if __name__ == "__main__":
     #classification report
     predict = predictions(model,X_test, y_test)
     print(classification_report(y_test, predict))
-    #save_model(model)
+    save_model(model)
 
     
